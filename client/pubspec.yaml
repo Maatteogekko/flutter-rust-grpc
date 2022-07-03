@@ -12,11 +12,15 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  grpc: ^3.0.2
+  protobuf: ^2.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  build_runner: ^2.1.11
+  protoc_builder: ^0.2.1+1
 
 flutter:
   uses-material-design: true

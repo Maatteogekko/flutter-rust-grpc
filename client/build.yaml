@@ -1,0 +1,11 @@
+targets:
+  $default:
+    sources:
+      - $package$
+      - lib/$lib$
+      - proto/**
+    builders:
+      protoc_builder:
+        options:
+          out_dir: "lib/proto"
+          grpc: true
