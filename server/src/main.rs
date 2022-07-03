@@ -16,8 +16,7 @@ impl Greeter for MyGreeter {
         &self,
         request: Request<HelloRequest>,
     ) -> Result<Response<HelloReply>, Status> {
-        println!("Got a request: {:?}", request);
-
+        println!("Got a request: {:#?}", request);
         let reply = hello_world::HelloReply {
             message: format!("Hello {}!", request.into_inner().name).into(),
         };
@@ -32,7 +31,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let greeter = MyGreeter::default();
 
     Server::builder()
-        .add_service(GreeterServer::new(greeter))
+        .accept_http1(true)
+        .add_service(tonic_web::enable(GreeterServer::new(greeter)))
         .serve(addr)
         .await?;
 
