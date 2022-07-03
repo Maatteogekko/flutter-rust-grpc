@@ -24,4 +24,6 @@ class GreeterNotifier extends Cubit<AsyncValue<String>?> {
       }),
     );
   }
+
+  void clear() => emit(null);
 }

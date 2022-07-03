@@ -27,7 +27,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         title: const Text('Say hello'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(264),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -37,24 +37,42 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   controller: _controller,
                 ),
                 const SizedBox(height: 24),
-                ElevatedButton(
-                  onPressed: () =>
-                      ref.read(greeterNotifierProvider.notifier).sayHello(_controller.text),
-                  child: const Text('Send'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () =>
+                          ref.read(greeterNotifierProvider.notifier).sayHello(_controller.text),
+                      child: const Text('Send'),
+                    ),
+                    const SizedBox(width: 24),
+                    ElevatedButton(
+                      onPressed: () {
+                        ref.read(greeterNotifierProvider.notifier).clear();
+                        _controller.clear();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: const RoundedRectangleBorder(),
+                      ),
+                      child: const Text('Clear'),
+                    ),
+                  ],
                 ),
               ],
             ),
-            if (message == null)
-              const Text('Who do you want do greet?')
-            else
-              message.when(
-                data: ((data) => Text(data)),
-                error: (e, st) => SelectableText(
-                  e.toString(),
-                  style: const TextStyle(color: Colors.red),
-                ),
-                loading: () => const CircularProgressIndicator(),
-              ),
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 100),
+              child: message == null
+                  ? Text('Who do you want do greet?', key: ValueKey(message))
+                  : message.when(
+                      data: ((data) => Text(data, key: ValueKey(message))),
+                      error: (e, st) => SelectableText(
+                        e.toString(),
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                      loading: () => const CircularProgressIndicator(),
+                    ),
+            ),
           ],
         ),
       ),
