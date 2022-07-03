@@ -1,0 +1,1 @@
+grpcurl -plaintext -import-path ./proto -proto hello_world.proto -d '{"name": "Tonic"}' [::]:50051 hello_world.Greeter/SayHello
