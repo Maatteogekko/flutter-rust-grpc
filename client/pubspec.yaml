@@ -17,6 +17,7 @@ dependencies:
   flutter_riverpod: ^1.0.4
   bloc: ^8.0.3
   riverbloc: ^1.0.0+2
+  universal_platform: ^1.0.0+1
 
 dev_dependencies:
   flutter_test:
