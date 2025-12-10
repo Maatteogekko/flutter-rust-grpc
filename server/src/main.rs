@@ -1,3 +1,5 @@
+use std::error::Error;
+
 use tonic::{transport::Server, Request, Response, Status};
 
 use hello_world::greeter_server::{Greeter, GreeterServer};
@@ -26,7 +28,7 @@ impl Greeter for MyGreeter {
 }
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() -> Result<(), Box<dyn Error>> {
     let addr = "0.0.0.0:50051".parse()?;
     let greeter = MyGreeter::default();
 
